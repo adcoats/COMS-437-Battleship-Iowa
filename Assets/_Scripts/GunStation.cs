@@ -56,13 +56,24 @@ public class GunStation : Station
             _currentAim *= (Vector2.Dot(aimFlipped, neutralUpVector) > 0) ? -1 : 1;
         } else {
             // gamepad
-            Vector2 aimDelta = currentPlayer.input.GetAimDelta();
-            Vector2 move = currentPlayer.input.GetMove();
+            Vector2 aimVector = currentPlayer.input.GetAimDelta();
 
             // if not using right stick, use left stick
-            if (aimDelta == Vector2.zero)
-                aimDelta = move;
+            if (aimVector.magnitude < 0.2f)
+                aimVector = currentPlayer.input.GetMove();
 
+            if (aimVector.magnitude >= 0.2f)
+            {
+                Vector2 neutralUpVector = Camera.main.transform.rotation * _neutralRotation * Vector2.up;
+                _currentAim = Vector2.Angle(aimVector, neutralUpVector);
+
+                // fix the sign because Vector2.Angle apparently doesn't give one (UGH)
+                Vector2 aimFlipped = new Vector2(-aimVector.y, aimVector.x);
+                _currentAim *= (Vector2.Dot(aimFlipped, neutralUpVector) > 0) ? -1 : 1;
+            }
+
+            /*
+            // aim by turning left/right
             if (aimDelta != Vector2.zero)
             {
                 Vector2 aimFlipped = new Vector2(-aimDelta.y, aimDelta.x);
@@ -75,7 +86,7 @@ public class GunStation : Station
                     sign = (sign > 0) ? -1 : 1;
                     _currentAim += Time.deltaTime * sign * 120;
                 }
-            }
+            }*/
         }
 
         // limit _currentAim to our turning radius
