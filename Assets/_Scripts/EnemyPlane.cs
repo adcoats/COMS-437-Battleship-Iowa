@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyPlane : MonoBehaviour {
 
+	public GameObject planeExplosion;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -16,6 +18,7 @@ public class EnemyPlane : MonoBehaviour {
     void OnDestroyed()
     {
         // rekt
+		Instantiate(planeExplosion, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }
