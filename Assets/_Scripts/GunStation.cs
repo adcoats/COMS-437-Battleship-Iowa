@@ -22,6 +22,9 @@ public class GunStation : Station
     // projectile to spawn when we press fire
     public GameObject projectilePrefab;
 
+	// audio source to play
+	private AudioSource gunShotAudio;
+
     private Quaternion _initialRotation;
     // _neutralRotation is used as the "center" when calculating rotation from _currentAim
     private Quaternion _neutralRotation { get { return transform.parent.rotation * _initialRotation; } }
@@ -33,6 +36,7 @@ public class GunStation : Station
     void Start ()
     {
         _initialRotation = transform.localRotation;
+		gunShotAudio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -114,6 +118,9 @@ public class GunStation : Station
 
             // fire from the next muzzle point next time
             _nextMuzzlePoint = (_nextMuzzlePoint + 1) % muzzlePoints.Length;
+
+			// play audio
+			gunShotAudio.Play();
 
             _lastShotTime = Time.time;
         }
