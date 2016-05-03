@@ -31,8 +31,8 @@ public class CaptainStation : Station
         // i made this up based on one of the formulas available here:
         // https://gamedev.stackexchange.com/questions/92747/2d-boat-controlling-physics
         // Vector2 side = battleship.transform.rotation * Vector2.right * -currentPlayer.input.GetMove().x;
-        body.AddTorque(body.velocity.magnitude * -currentPlayer.input.GetSteering().x * turnSpeed);
-
+		//body.AddTorque(body.velocity.sqrMagnitude * -currentPlayer.input.GetSteering().x * turnSpeed);
+		body.AddTorque(-currentPlayer.input.GetSteering().x * turnSpeed);
         // make sure the player is in their seat
         currentPlayer.transform.position = playerSeat.transform.position;
 	}
