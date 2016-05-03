@@ -26,7 +26,8 @@ public class MKBInput : MonoBehaviour, IPlayerInput
     public bool PressingFire()
     {
         // switch to GetMouseButton() for auto fire
-        return Input.GetMouseButtonDown(0);
+        //return Input.GetMouseButtonDown(0);
+		return Input.GetMouseButton(0);
     }
 
     // E key?
