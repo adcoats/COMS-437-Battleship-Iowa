@@ -12,11 +12,10 @@ public class Projectile : MonoBehaviour
     // when this object was created, used to check if lifeTime has been reached
     private float _spawnTime;
 
-	public GameObject smoke;
-
 	void Start ()
     {
         _spawnTime = Time.time;
+
 	}
 	
 	void Update ()
