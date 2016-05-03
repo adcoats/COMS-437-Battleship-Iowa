@@ -8,7 +8,7 @@ public class EnemyPlane : MonoBehaviour {
     // AI
     public GameObject target;
 
-    public float speed = 10.0f;
+    public float speed = 150.0f;
 
     private const float CIRCLE_RADIUS = 10.0f;
     private const float APPROACH_DISTANCE = 2.0f;
@@ -28,14 +28,27 @@ public class EnemyPlane : MonoBehaviour {
 
         Rigidbody2D body = GetComponent<Rigidbody2D>();
 
+		float angle = Vector2.Angle (body.velocity, Vector2.up);
+		if (body.velocity.x > 0) 
+		{
+			angle *= -1;
+		}
+		body.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+		//body.transform.rotation = Quaternion.LookRotation(new Vector3(body.velocity.x, body.velocity.y, 0), Vector3.back);
+		//Vector3 position = new Vector3(body.position.x, body.position.y, 0);
+		//Vector3 velocity = new Vector3(body.velocity.x, body.velocity.y, 0);
+		//body.transform.LookAt(position + velocity, Vector3.);
+		//Quaternion.Angle(transform)
+
+		body.AddForce(dir * speed);
+
         if (dist > APPROACH_DISTANCE)
         {
             // approach
-            float force = body.velocity.magnitude - speed;
-            body.AddForce(dir * speed);
+            //float force = body.velocity.magnitude - speed;
+            
         } else {
             // circle
-
         }
 	}
 
