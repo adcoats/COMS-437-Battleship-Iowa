@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     // input device
-    public IPlayerInput input;
+    public IPlayerInput input { get { return GetComponent<IPlayerInput>(); } }
 
     // wrapper for accessing sprite color
     public Color playerColor
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        input = gameObject.AddComponent<MKBInput>();
+        //input = gameObject.AddComponent<MKBInput>();
         //input = gameObject.AddComponent<GamepadInput>();
 
         _lastGlobalPt = transform.position;
