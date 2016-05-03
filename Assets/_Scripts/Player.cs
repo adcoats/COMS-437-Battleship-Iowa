@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
         set { GetComponent<SpriteRenderer>().color = value; }
     }
 
+    public float moveSpeed = 30.0f;
+
     // for moving with the battleship
     // we can't just set the battleship as our parent - Unity doesn't
     // like 2 RigidBodies in a parent-child relationship
@@ -83,7 +85,7 @@ public class Player : MonoBehaviour
         if (_currentStation == null)
         {
             // not manning a station, move around the ship
-            GetComponent<Rigidbody2D>().velocity = Camera.main.transform.rotation * input.GetMove() * Time.deltaTime * 30;
+            GetComponent<Rigidbody2D>().velocity = Camera.main.transform.rotation * input.GetMove() * Time.deltaTime * moveSpeed;
         }
 	}
 
