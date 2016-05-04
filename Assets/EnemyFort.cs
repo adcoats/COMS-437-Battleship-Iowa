@@ -4,7 +4,6 @@ using System.Collections;
 public class EnemyFort : MonoBehaviour {
 
 	public GameObject deathExplosion;
-	public GameObject rekt;
 
 	// Use this for initialization
 	void Start () {
@@ -17,10 +16,8 @@ public class EnemyFort : MonoBehaviour {
 	}
 	void OnDestroyed()
 	{
-		if (deathExplosion) {
-			Instantiate (deathExplosion, transform.position, transform.rotation);
-			Instantiate (rekt, transform.position, transform.rotation);
-		}
+		if (deathExplosion)
+			Instantiate(deathExplosion, transform.position, transform.rotation);
 
 		Destroy(gameObject);
 	}
