@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
         }
 	}
 
-    void OnCollisionStay2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         GameObject other = col.collider.gameObject;
 
