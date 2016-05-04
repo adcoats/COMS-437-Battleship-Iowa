@@ -4,6 +4,8 @@ using System;
 
 public class EnemyGun : MonoBehaviour
 {
+	public GameObject explosion;
+
 	// +/- how far this station can aim, in degrees
 	public float turnRadius = 50;
 
@@ -105,8 +107,9 @@ public class EnemyGun : MonoBehaviour
 		}
 	}
 
-    void OnDestroyed()
-    {
-        Destroy(gameObject);
-    }
+	void OnDestroyed()
+	{
+		Instantiate(explosion, transform.position, transform.rotation);
+		Destroy(gameObject);
+	}
 }
