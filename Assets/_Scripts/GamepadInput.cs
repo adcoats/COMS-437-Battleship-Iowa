@@ -36,7 +36,6 @@ public class GamepadInput : MonoBehaviour, IPlayerInput {
 
     public Vector2 GetSteering()
     {
-		print (Application.platform);
 		if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
 			return new Vector2(leftThumbstick().x, leftThumbstick().y);
 		else
