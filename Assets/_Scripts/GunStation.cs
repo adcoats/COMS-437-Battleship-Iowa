@@ -146,6 +146,7 @@ public class GunStation : Station
 
     protected override void OnStopManning()
     {
-        
+        if (fireSoundSource != null && fireSoundSource.loop)
+            fireSoundSource.Stop();
     }
 }

@@ -42,7 +42,6 @@ public class Player : MonoBehaviour
 	void Awake ()
 	{
 		battleship = GameObject.Find ("Battleship");
-		print (battleship == null);
 	}
 
     void Update()
