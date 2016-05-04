@@ -10,6 +10,9 @@ public class EnemyGun : MonoBehaviour
 	// minimum time between shots, in seconds
 	public float reloadTime = 0.1f;
 
+    // max distance the target can be before we start shooting
+    public float maxFireDistance = 10.0f;
+
 	// maximum number of shots that can be fired in a single burst
 	public int maxBurst = 10;
 	// how many shots have been fired in this burst
@@ -21,7 +24,7 @@ public class EnemyGun : MonoBehaviour
 	private float timer;
 
 	// player ship
-	private GameObject playerShip;
+	private GameObject target;
 
 	// initial speed of fired projectile
 	public float projectileSpeed = 20.0f;
@@ -45,25 +48,23 @@ public class EnemyGun : MonoBehaviour
 	{
 		_initialRotation = transform.localRotation;
 		timer = reload;
-		playerShip = GameObject.Find ("Battleship");
+		target = GameObject.Find ("Battleship");
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
+        if ((target.transform.position - transform.position).magnitude > maxFireDistance)
+            return;
+        
 		// look at player ship
-//		transform.LookAt(playerShip.transform, Vector3.up);
-//		_currentAim = transform.rotation.z;
-
-
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 		Vector2 neutralUpVector = Camera.main.transform.rotation * _neutralRotation * Vector2.up;
-		Vector2 aimVector = new Vector2(playerShip.transform.position.x, playerShip.transform.position.x)  - new Vector2(screenPos.x, screenPos.y);
+		Vector2 aimVector = target.transform.position - transform.position;
 		_currentAim = Vector2.Angle(aimVector, neutralUpVector);
 
 		// fix the sign because Vector2.Angle apparently doesn't give one (UGH)
-//		Vector2 aimFlipped = new Vector2(-aimVector.y, aimVector.x);
-//		_currentAim *= (Vector2.Dot(aimFlipped, neutralUpVector) > 0) ? -1 : 1;
+		Vector2 aimFlipped = new Vector2(-aimVector.y, aimVector.x);
+		_currentAim *= (Vector2.Dot(aimFlipped, neutralUpVector) > 0) ? -1 : 1;
 
 		// limit _currentAim to our turning radius
 		_currentAim = Mathf.Clamp(_currentAim, -turnRadius, turnRadius);
