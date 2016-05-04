@@ -101,6 +101,8 @@ public class GunStation : Station
         if (currentPlayer.input.PressingFire() && (Time.time - _lastShotTime) >= reloadTime)
         {
             GameObject proj = Instantiate(projectilePrefab);
+            proj.layer = 11;
+            // Physics2D.IgnoreCollision(proj.GetComponent<Collider2D>(), transform.parent.GetComponent<Collider2D>());
 
             // muzzle point we will fire from (where to spawn the
             // projectile, and with what rotation)
