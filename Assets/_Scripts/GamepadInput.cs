@@ -23,21 +23,24 @@ public class GamepadInput : MonoBehaviour, IPlayerInput {
 
     public bool PressingFire()
     {
-		return Input.GetAxis("Joystick " + gamePadId + " Fire") > 0;
+		if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
+			return Input.GetAxis("Joystick " + gamePadId + " Fire") < 0;
+		else
+			return Input.GetAxis("Joystick " + gamePadId + " Fire") > 0;
     }
 
     public bool PressingToggleStation()
     {
-		if (Input.GetButtonDown("Joystick " + gamePadId + " Toggle Station"))
-		{
-			print("pressing station");
-		}
 		return Input.GetButtonDown("Joystick " + gamePadId + " Toggle Station");
     }
 
     public Vector2 GetSteering()
     {
-		return new Vector2(leftThumbstick().x, Input.GetAxis("Joystick " + gamePadId + " Fire"));
+		print (Application.platform);
+		if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
+			return new Vector2(leftThumbstick().x, leftThumbstick().y);
+		else
+			return new Vector2(leftThumbstick().x, Input.GetAxis("Joystick " + gamePadId + " Fire"));
     }
 
     public bool PreferAbsolute()
@@ -47,12 +50,11 @@ public class GamepadInput : MonoBehaviour, IPlayerInput {
 
     private Vector2 rightThumbstick()
     {
-		return new Vector2(Input.GetAxis("Joystick " + gamePadId + " Aim Horizontal"), Input.GetAxis("Joystick 1" + gamePadId + " Aim Vertical"));
+		return new Vector2(Input.GetAxis("Joystick " + gamePadId + " Aim Horizontal"), Input.GetAxis("Joystick " + gamePadId + " Aim Vertical"));
     }
 
     private Vector2 leftThumbstick()
     {
-		print("pressing station" + Input.GetAxis("Joystick " + gamePadId + " Move Horizontal"));
 		return new Vector2(Input.GetAxis("Joystick " + gamePadId + " Move Horizontal"), Input.GetAxis("Joystick " + gamePadId + " Move Vertical"));
     }
 }
