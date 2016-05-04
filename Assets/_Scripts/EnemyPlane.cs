@@ -29,10 +29,7 @@ public class EnemyPlane : MonoBehaviour {
 
         if (ang > 180)
             ang = -(360 - ang);
-
-        //if (a.x > 0)
-        //    ang *= -1;
-
+        
         return -ang;
     }
 
@@ -52,7 +49,7 @@ public class EnemyPlane : MonoBehaviour {
             body.angularVelocity = Mathf.Clamp(ang, -maxTurnSpeed, maxTurnSpeed);
         }
         
-        body.velocity = forward * speed;
+        body.velocity = forward * speed / (1 + Mathf.Abs(body.angularVelocity / 180.0f));
     }
 
     void OnDestroyed()
