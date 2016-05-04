@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour {
 
 	int numControllerPlayers;
 	public GameObject controllerPlayerPrefab;
+	static Color[] colors = new Color[]{Color.yellow, Color.magenta, Color.green, Color.cyan};
 
 	void Awake ()
 	{
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour {
 			GameObject playerRef = Instantiate (controllerPlayerPrefab);
 			GamepadInput component = playerRef.GetComponent<GamepadInput> ();
 			component.gamePadId = i + 1;
+			SpriteRenderer renderer = playerRef.GetComponent<SpriteRenderer> ();
+			renderer.color = colors[i];
 		}
 	}
 	
