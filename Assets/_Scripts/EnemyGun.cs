@@ -101,4 +101,9 @@ public class EnemyGun : MonoBehaviour
 			}
 		}
 	}
+
+    void OnDestroyed()
+    {
+        Destroy(gameObject);
+    }
 }
