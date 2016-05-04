@@ -28,3 +28,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Objects/Model_Board.fbm.meta
+Assets/Objects/Model_Piece.fbm.meta
+Assets/StationPrefabs.meta
