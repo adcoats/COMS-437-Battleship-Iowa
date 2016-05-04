@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     // we can't just set the battleship as our parent - Unity doesn't
     // like 2 RigidBodies in a parent-child relationship
     // don't worry too much about this, it's magic
-    public GameObject battleship;
+    private GameObject battleship;
     private Vector3 _parentLocalPt;
     private Vector3 _lastGlobalPt;
 
@@ -36,8 +36,15 @@ public class Player : MonoBehaviour
 
         _lastGlobalPt = transform.position;
         _parentLocalPt = battleship.transform.InverseTransformPoint(transform.position);
+
 	}
-	
+
+	void Awake ()
+	{
+		battleship = GameObject.Find ("Battleship");
+		print (battleship == null);
+	}
+
     void Update()
     {
         // are we currently manning a station?
