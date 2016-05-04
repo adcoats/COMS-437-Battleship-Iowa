@@ -71,6 +71,9 @@ public class EnemyGun : MonoBehaviour
 		// Apply _currentAim to our actual rotation
 		transform.rotation = _neutralRotation * Quaternion.AngleAxis(_currentAim, new Vector3(0, 0, 1));
 
+		if ((target.transform.position - transform.position).magnitude > maxFireDistance)
+			return;
+
 		// fire if we're pressing the button and we've waited long enough for reloadTime seconds
 		if (shotsFired < maxBurst && (Time.time - _lastShotTime) >= reloadTime) {
 			GameObject proj = Instantiate (projectilePrefab);
