@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyBattleship : MonoBehaviour {
 
+    public GameObject deathExplosion;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -12,4 +14,12 @@ public class EnemyBattleship : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void OnDestroyed()
+    {
+        if (deathExplosion)
+            Instantiate(deathExplosion, transform.position, transform.rotation);
+
+        Destroy(gameObject);
+    }
 }
