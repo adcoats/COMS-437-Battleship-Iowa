@@ -7,50 +7,50 @@ public class EnemyPlane : MonoBehaviour {
 
     // AI
     public GameObject target;
-
-    public float speed = 150.0f;
-
-    private const float CIRCLE_RADIUS = 10.0f;
-    private const float APPROACH_DISTANCE = 2.0f;
+    public float speed = 5.0f;  // forward speed
+    public float minTurnDist = 1.0f;  // distance from target plane starts to turn at
+    public float maxTurnSpeed = 45.0f;  // maximum angular velocity
 
 	// Use this for initialization
 	void Start()
     {
 	
 	}
-	
+
+    // http://answers.unity3d.com/questions/162177/vector2angles-direction.html
+    // pure fucking magic
+    private float VectorAngleWithSign(Vector2 a, Vector2 b)
+    {
+        float ang = Vector2.Angle(a, b);
+        Vector3 cross = Vector3.Cross(a, b);
+ 
+        if (cross.z > 0)
+            ang = 360 - ang;
+
+        if (ang > 180)
+            ang = -(360 - ang);
+        
+        return -ang;
+    }
+
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
     {
         Vector2 dir = target.transform.position - transform.position;
         float dist = dir.magnitude;
         dir.Normalize();
 
         Rigidbody2D body = GetComponent<Rigidbody2D>();
+        Vector2 forward = body.transform.rotation * Vector2.up;
 
-		float angle = Vector2.Angle (body.velocity, Vector2.up);
-		if (body.velocity.x > 0) 
-		{
-			angle *= -1;
-		}
-		body.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-		//body.transform.rotation = Quaternion.LookRotation(new Vector3(body.velocity.x, body.velocity.y, 0), Vector3.back);
-		//Vector3 position = new Vector3(body.position.x, body.position.y, 0);
-		//Vector3 velocity = new Vector3(body.velocity.x, body.velocity.y, 0);
-		//body.transform.LookAt(position + velocity, Vector3.);
-		//Quaternion.Angle(transform)
-
-		body.AddForce(dir * speed);
-
-        if (dist > APPROACH_DISTANCE)
+        if (dist >= minTurnDist)
         {
-            // approach
-            //float force = body.velocity.magnitude - speed;
-            
-        } else {
-            // circle
+            float ang = VectorAngleWithSign(forward, dir);
+            body.angularVelocity = Mathf.Clamp(ang, -maxTurnSpeed, maxTurnSpeed);
         }
-	}
+        
+        body.velocity = forward * speed / (1 + Mathf.Abs(body.angularVelocity / 180.0f));
+    }
 
     void OnDestroyed()
     {

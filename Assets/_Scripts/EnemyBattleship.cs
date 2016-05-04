@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyBattleship : MonoBehaviour {
 
-	public GameObject shipExplosion;
+    public GameObject deathExplosion;
 
 	// Use this for initialization
 	void Start () {
@@ -15,9 +15,11 @@ public class EnemyBattleship : MonoBehaviour {
 	
 	}
 
-	void OnDestroy()
-	{
-		Instantiate(shipExplosion, transform.position, transform.rotation);
-		Destroy(gameObject);
-	}
+    void OnDestroyed()
+    {
+        if (deathExplosion)
+            Instantiate(deathExplosion, transform.position, transform.rotation);
+
+        Destroy(gameObject);
+    }
 }

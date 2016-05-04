@@ -120,7 +120,7 @@ public class GunStation : Station
             _nextMuzzlePoint = (_nextMuzzlePoint + 1) % muzzlePoints.Length;
 
             _lastShotTime = Time.time;
-
+            
             if (fireSoundSource != null && !fireSoundSource.loop)
                 fireSoundSource.Play();
         }
