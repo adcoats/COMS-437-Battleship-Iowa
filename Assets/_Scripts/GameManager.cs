@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
             GameWon();
 
         // pause/unpause
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Joystick Any Pause"))
         {
             Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
         }
