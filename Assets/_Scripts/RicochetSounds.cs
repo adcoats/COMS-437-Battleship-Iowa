@@ -4,10 +4,17 @@ using System.Collections;
 public class RicochetSounds : MonoBehaviour {
 
 	public AudioSource[] damageSoundSources;
+	public float volume = 1.0f;
 
 	// Use this for initialization
 	void Start () {
-		//damageSoundSources = GetComponents<AudioSource> ();
+		// clamp volume to a valid value
+		Mathf.Clamp (volume, 0, 1);
+
+		for (int i = 0; i < damageSoundSources.Length; i++) 
+		{
+			damageSoundSources [i].volume = volume;
+		}
 	}
 
 
