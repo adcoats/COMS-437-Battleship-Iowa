@@ -11,10 +11,18 @@ public class EnemyBattleship : MonoBehaviour
 
     public GameObject target;
 
+
+	private AudioSource[] damageSoundSources;
+	private float damageFlashTime;
+	private SpriteRenderer renderer;
+	private float damageTaken;
+
 	// Use this for initialization
 	void Start ()
     {
-	
+		damageSoundSources = GetComponents<AudioSource> ();
+		renderer = GetComponent<SpriteRenderer> ();
+		damageTaken = 0;
 	}
 
     void Awake()
@@ -26,8 +34,10 @@ public class EnemyBattleship : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-    {
-	
+	{
+		damageTaken = Mathf.Clamp (damageTaken, 0, 5);
+		renderer.color = Color.Lerp (Color.white, Color.red, damageTaken / 5);
+		damageTaken -= 10 * Time.deltaTime;
 	}
 
     void FixedUpdate()
@@ -74,6 +84,22 @@ public class EnemyBattleship : MonoBehaviour
         //print("Target angle: " + targetAngle);
         body.angularVelocity = Mathf.Clamp(targetAngle, -maxTurnSpeed, maxTurnSpeed);
     }
+
+	void OnDamaged(float amount)
+	{
+		int i = Random.Range (0, 3);
+		if (amount > 3) // random number
+		{ 
+			damageSoundSources [i].pitch = Random.Range (0.3f, 0.4f);
+		} else 
+		{
+			damageSoundSources [i].pitch = Random.Range (0.6f, 0.7f);
+		}
+		damageSoundSources[i].PlayOneShot (damageSoundSources[i].clip);
+
+
+		damageTaken += amount;
+	}
 
     void OnDestroyed()
     {

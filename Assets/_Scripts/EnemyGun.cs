@@ -117,7 +117,10 @@ public class EnemyGun : MonoBehaviour
 			if (timer > 0) {
 				timer -= Time.deltaTime;
 			} else {
-				fireSoundSource.Stop ();
+				if(fireSoundSource != null)
+				{
+					fireSoundSource.Stop ();
+				}
 				shotsFired = 0;
 				timer = reload;
 			}
