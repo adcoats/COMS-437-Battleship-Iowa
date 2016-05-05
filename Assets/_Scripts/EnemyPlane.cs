@@ -4,7 +4,10 @@ using System.Collections;
 public class EnemyPlane : MonoBehaviour {
 
 	public GameObject planeExplosion;
-
+	public Vector3 initPos;
+	public float searchRange = 0.5f; // The plane will search for the player in this radius from itself.
+	public bool found;
+	
     // AI
     public GameObject target;
     public float speed = 5.0f;  // forward speed
@@ -14,7 +17,8 @@ public class EnemyPlane : MonoBehaviour {
 	// Use this for initialization
 	void Start()
     {
-	
+		this.initPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+		found = false;
 	}
 
     void Awake()
@@ -26,8 +30,20 @@ public class EnemyPlane : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate()
     {
+		
         Vector2 dir = target.transform.position - transform.position;
         float dist = dir.magnitude;
+		
+		if( !found ){
+			
+			dir = initPos - transform.position;
+			dist = dir.magnitude;
+			
+			if( dist <= searchRange ){
+				found = true;
+			}
+		}
+		
         dir.Normalize();
 
         Rigidbody2D body = GetComponent<Rigidbody2D>();
