@@ -31,14 +31,7 @@ public class EnemyBattleship : MonoBehaviour
         if (target == null)
             target = GameObject.Find("Battleship");
     }
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		damageTaken = Mathf.Clamp (damageTaken, 0, 5);
-		renderer.color = Color.Lerp (Color.white, Color.red, damageTaken / 5);
-		damageTaken -= 10 * Time.deltaTime;
-	}
+
 
     void FixedUpdate()
     {
@@ -96,9 +89,6 @@ public class EnemyBattleship : MonoBehaviour
 			damageSoundSources [i].pitch = Random.Range (0.6f, 0.7f);
 		}
 		damageSoundSources[i].PlayOneShot (damageSoundSources[i].clip);
-
-
-		damageTaken += amount;
 	}
 
     void OnDestroyed()
