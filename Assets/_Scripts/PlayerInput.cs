@@ -12,6 +12,7 @@ public interface IPlayerInput {
     bool PressingToggleStation();
 
     Vector2 GetSteering();  // ship throttle + turning when piloting ship
+    bool PressingZoomOut();
 
     // Should turrets try to aim at the mouse cursor?
     // Prefer using our cursor position (GetAimAbsolute()) instead of aiming based on mouse position deltas (GetAimDelta())?

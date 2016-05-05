@@ -56,4 +56,9 @@ public class GamepadInput : MonoBehaviour, IPlayerInput {
     {
 		return new Vector2(Input.GetAxis("Joystick " + gamePadId + " Move Horizontal"), Input.GetAxis("Joystick " + gamePadId + " Move Vertical"));
     }
+
+    public bool PressingZoomOut()
+    {
+        return Input.GetButton("Joystick " + gamePadId + " Zoom Out");
+    }
 }
