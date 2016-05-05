@@ -17,6 +17,12 @@ public class EnemyPlane : MonoBehaviour {
 	
 	}
 
+    void Awake()
+    {
+        if (target == null)
+            target = GameObject.Find("Battleship");
+    }
+
 	// Update is called once per frame
 	void FixedUpdate()
     {

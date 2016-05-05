@@ -40,7 +40,9 @@ public class EnemyGun : MonoBehaviour
 	private Quaternion _initialRotation;
 	// _neutralRotation is used as the "center" when calculating rotation from _currentAim
 	//private Quaternion _neutralRotation { get { return transform.parent.rotation * _initialRotation; } }
-	private Quaternion _neutralRotation { get { return _initialRotation; } }
+	private Quaternion _neutralRotation { get {
+            return (transform.parent == null) ? _initialRotation : transform.parent.rotation * _initialRotation;
+        } }
 	private float _currentAim;  // current rotation around Z axis from _neutralRotation
 	private float _lastShotTime;  // for making sure we wait at least reloadTime seconds between shots
 	private int _nextMuzzlePoint;  // index of last muzzle point, so we cycle with each shot
