@@ -19,7 +19,9 @@ public class PlayerShip : MonoBehaviour {
 	{
 		if (deathExplosion)
 			Instantiate(deathExplosion, transform.position, transform.rotation);
+        
+        GameObject.Find("Game Manager").GetComponent<GameManager>().TriggerGameOver();
 
-		Destroy(gameObject);
+        Destroy(gameObject);
 	}
 }
