@@ -13,6 +13,7 @@ public class EnemyPlane : MonoBehaviour {
     public float speed = 5.0f;  // forward speed
     public float minTurnDist = 1.0f;  // distance from target plane starts to turn at
     public float maxTurnSpeed = 45.0f;  // maximum angular velocity
+    public float aggroRange = 25.0f;
 
 	// Use this for initialization
 	void Start()
@@ -30,7 +31,14 @@ public class EnemyPlane : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate()
     {
-		
+        Rigidbody2D body = GetComponent<Rigidbody2D>();
+        if ((target.transform.position - transform.position).magnitude > aggroRange)
+        {
+            if (body.velocity.sqrMagnitude > 0.001f)
+                body.velocity *= 0.9f;
+            return;
+        }
+
         Vector2 dir = target.transform.position - transform.position;
         float dist = dir.magnitude;
 		
@@ -46,7 +54,6 @@ public class EnemyPlane : MonoBehaviour {
 		
         dir.Normalize();
 
-        Rigidbody2D body = GetComponent<Rigidbody2D>();
         Vector2 forward = body.transform.rotation * Vector2.up;
 
         if (dist >= minTurnDist)
