@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour {
         {
             Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
         }
+
+        // quit to menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+            GoToMenu();
     }
 
     public void TriggerGameOver()

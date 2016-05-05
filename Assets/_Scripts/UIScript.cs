@@ -18,4 +18,9 @@ public class UIScript : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("scene1");
 	}
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
