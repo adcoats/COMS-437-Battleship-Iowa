@@ -40,10 +40,13 @@ public class EnemyGun : MonoBehaviour
 	private Quaternion _initialRotation;
 	// _neutralRotation is used as the "center" when calculating rotation from _currentAim
 	//private Quaternion _neutralRotation { get { return transform.parent.rotation * _initialRotation; } }
-	private Quaternion _neutralRotation { get { return _initialRotation; } }
+	private Quaternion _neutralRotation { get {
+            return (transform.parent == null) ? _initialRotation : transform.parent.rotation * _initialRotation;
+        } }
 	private float _currentAim;  // current rotation around Z axis from _neutralRotation
 	private float _lastShotTime;  // for making sure we wait at least reloadTime seconds between shots
 	private int _nextMuzzlePoint;  // index of last muzzle point, so we cycle with each shot
+	private AudioSource fireSoundSource;
 
 	// Use this for initialization
 	void Start ()
@@ -51,6 +54,7 @@ public class EnemyGun : MonoBehaviour
 		_initialRotation = transform.localRotation;
 		timer = reload;
 		target = GameObject.Find ("Battleship");
+		fireSoundSource = GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
@@ -93,6 +97,18 @@ public class EnemyGun : MonoBehaviour
 			// fire from the next muzzle point next time
 			_nextMuzzlePoint = (_nextMuzzlePoint + 1) % muzzlePoints.Length;
 
+
+			if (fireSoundSource != null) {
+				
+				// Play sound if it isn't looped
+				if (!fireSoundSource.loop)
+					fireSoundSource.Play ();
+
+				// Play looped sound
+				if (!fireSoundSource.isPlaying && fireSoundSource.loop)
+					fireSoundSource.Play ();
+			}
+
 			_lastShotTime = Time.time;
 			shotsFired++;
 		} else if (shotsFired >= maxBurst)
@@ -101,6 +117,7 @@ public class EnemyGun : MonoBehaviour
 			if (timer > 0) {
 				timer -= Time.deltaTime;
 			} else {
+				fireSoundSource.Stop ();
 				shotsFired = 0;
 				timer = reload;
 			}

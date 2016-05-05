@@ -20,6 +20,12 @@ public class EnemyPlane : MonoBehaviour {
 		this.initPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 	}
 
+    void Awake()
+    {
+        if (target == null)
+            target = GameObject.Find("Battleship");
+    }
+
 	// Update is called once per frame
 	void FixedUpdate()
     {
