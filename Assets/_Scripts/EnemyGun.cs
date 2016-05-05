@@ -97,14 +97,17 @@ public class EnemyGun : MonoBehaviour
 			// fire from the next muzzle point next time
 			_nextMuzzlePoint = (_nextMuzzlePoint + 1) % muzzlePoints.Length;
 
-			// Play sound if it isn't looped
-			if (fireSoundSource != null && !fireSoundSource.loop)
-				fireSoundSource.Play();
 
-			// Play looped sound
-			if (!fireSoundSource.isPlaying)
-				fireSoundSource.Play();
+			if (fireSoundSource != null) {
+				
+				// Play sound if it isn't looped
+				if (!fireSoundSource.loop)
+					fireSoundSource.Play ();
 
+				// Play looped sound
+				if (!fireSoundSource.isPlaying && fireSoundSource.loop)
+					fireSoundSource.Play ();
+			}
 
 			_lastShotTime = Time.time;
 			shotsFired++;
