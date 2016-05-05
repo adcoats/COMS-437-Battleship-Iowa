@@ -109,6 +109,16 @@ public class SimpleShoot : MonoBehaviour
 
 			_lastShotTime = Time.time;
 			shotsFired++;
+			if (fireSoundSource != null) {
+
+				// Play sound if it isn't looped
+				if (!fireSoundSource.loop)
+					fireSoundSource.Play ();
+
+				// Play looped sound
+				if (!fireSoundSource.isPlaying && fireSoundSource.loop)
+					fireSoundSource.Play ();
+			}
 		} else if (shotsFired >= maxBurst) {
 			// when timer runs out, enable shooting
 			if (timer > 0) {
