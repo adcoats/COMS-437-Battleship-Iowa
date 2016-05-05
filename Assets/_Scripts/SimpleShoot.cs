@@ -98,6 +98,13 @@ public class SimpleShoot : MonoBehaviour
 			proj.transform.position = mp.transform.position;
 			proj.transform.rotation = mp.transform.rotation;
 
+            float angle = Vector2.Angle(Vector2.up, aimVector.normalized);
+
+            if (aimVector.x > 0)
+                angle *= -1;
+
+            proj.transform.rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
+
 
 			// set initial velocity
 			//aimVector = transform.rotation * Vector2.up;
