@@ -78,18 +78,7 @@ public class EnemyBattleship : MonoBehaviour
         body.angularVelocity = Mathf.Clamp(targetAngle, -maxTurnSpeed, maxTurnSpeed);
     }
 
-	void OnDamaged(float amount)
-	{
-		int i = Random.Range (0, 3);
-		if (amount > 3) // random number
-		{ 
-			damageSoundSources [i].pitch = Random.Range (0.3f, 0.4f);
-		} else 
-		{
-			damageSoundSources [i].pitch = Random.Range (0.6f, 0.7f);
-		}
-		damageSoundSources[i].PlayOneShot (damageSoundSources[i].clip);
-	}
+
 
     void OnDestroyed()
     {
