@@ -59,8 +59,7 @@ public class SimpleShoot : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-
-		if ((target.transform.position - transform.position).magnitude > maxFireDistance)
+		if (target == null || (target.transform.position - transform.position).magnitude > maxFireDistance)
 			return;
 
 		// look at player ship
@@ -76,14 +75,9 @@ public class SimpleShoot : MonoBehaviour
 		// limit _currentAim to our turning radius
 		_currentAim = Mathf.Clamp(_currentAim, -turnRadius, turnRadius);
 
-
 		// Apply _currentAim to our actual rotation
 		//transform.rotation = _neutralRotation * Quaternion.AngleAxis(_currentAim, new Vector3(0, 0, 1));
-
-
-		Quaternion directionQ = _neutralRotation * Quaternion.AngleAxis(_currentAim, new Vector3(0, 0, 1));
-
-
+        
 		if ((target.transform.position - transform.position).magnitude > maxFireDistance)
 			return;
 

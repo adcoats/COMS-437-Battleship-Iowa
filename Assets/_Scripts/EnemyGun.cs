@@ -60,7 +60,7 @@ public class EnemyGun : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        if ((target.transform.position - transform.position).magnitude > maxFireDistance )
+        if (target == null || (target.transform.position - transform.position).magnitude > maxFireDistance )
             return;
 		
 		Vector2 aimVector = target.transform.position - transform.position;

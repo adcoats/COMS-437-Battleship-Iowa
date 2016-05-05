@@ -28,7 +28,7 @@ public class EnemyBattleship : MonoBehaviour
 
     void FixedUpdate()
     {
-		if ((target.transform.position - transform.position).magnitude > aggroRange)
+		if (target == null || (target.transform.position - transform.position).magnitude > aggroRange)
 		{
 			return;
 		}

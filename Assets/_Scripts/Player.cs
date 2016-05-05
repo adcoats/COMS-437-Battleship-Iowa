@@ -78,15 +78,18 @@ public class Player : MonoBehaviour
 
 	void FixedUpdate ()
     {
-        // follow battleship by tracking how a point in the battleship's "local space"
-        // has changed since last frame; adapted from here:
-        // http://answers.unity3d.com/questions/8207/charactercontroller-falls-through-or-slips-off-mov.html
-        // this mess is necessary because Unity doesn't like having 2 rigidbodies in
-        // a parent-child relationship (the child won't follow the parent)
-        Vector3 newWorldPt = battleship.transform.TransformPoint(_parentLocalPt);
-        transform.position += (newWorldPt - _lastGlobalPt);  // move like the battleship moved last frame
-        _lastGlobalPt = transform.position;
-        _parentLocalPt = battleship.transform.InverseTransformPoint(transform.position);
+        if (battleship != null)
+        {
+            // follow battleship by tracking how a point in the battleship's "local space"
+            // has changed since last frame; adapted from here:
+            // http://answers.unity3d.com/questions/8207/charactercontroller-falls-through-or-slips-off-mov.html
+            // this mess is necessary because Unity doesn't like having 2 rigidbodies in
+            // a parent-child relationship (the child won't follow the parent)
+            Vector3 newWorldPt = battleship.transform.TransformPoint(_parentLocalPt);
+            transform.position += (newWorldPt - _lastGlobalPt);  // move like the battleship moved last frame
+            _lastGlobalPt = transform.position;
+            _parentLocalPt = battleship.transform.InverseTransformPoint(transform.position);
+        }
 
         if (_currentStation == null)
         {

@@ -32,7 +32,7 @@ public class EnemyPlane : MonoBehaviour {
 	void FixedUpdate()
     {
         Rigidbody2D body = GetComponent<Rigidbody2D>();
-        if ((target.transform.position - transform.position).magnitude > aggroRange)
+        if (target == null || (target.transform.position - transform.position).magnitude > aggroRange)
         {
             if (body.velocity.sqrMagnitude > 0.001f)
                 body.velocity *= 0.9f;

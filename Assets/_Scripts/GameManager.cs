@@ -30,10 +30,16 @@ public class GameManager : MonoBehaviour {
         UpdateEnemyList();
 	}
 
-    void FixedUpdate()
+    void Update()
     {
         if (CheckForWin())
             GameWon();
+
+        // pause/unpause
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
+        }
     }
 
     public void TriggerGameOver()
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour {
         loseImage.SetActive(true);
         gameObject.SetActive(false);
         Invoke("GoToMenu", 6.0f);
+        Time.timeScale = 0.85f;
     }
 
     private void GameWon()
@@ -55,12 +62,12 @@ public class GameManager : MonoBehaviour {
         winImage.SetActive(true);
         gameObject.SetActive(false);
         Invoke("GoToMenu", 4.0f);
+        Time.timeScale = 0.85f;
     }
 
     private void GoToMenu()
     {
         SceneManager.LoadScene("Main_Menu");
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main_Menu"));
     }
 
     private bool CheckForWin()
