@@ -10,11 +10,11 @@ public class RicochetSounds : MonoBehaviour {
 	void Start () {
 		// clamp volume to a valid value
 		Mathf.Clamp (volume, 0, 1);
-
-		for (int i = 0; i < damageSoundSources.Length; i++) 
-		{
-			damageSoundSources [i].volume = volume;
-		}
+//
+//		for (int i = 0; i < damageSoundSources.Length; i++) 
+//		{
+//			damageSoundSources [i].volume = volume;
+//		}
 	}
 
 
@@ -26,12 +26,14 @@ public class RicochetSounds : MonoBehaviour {
 		if (damageSoundSources != null) 
 		{
 
-			if (amount > damageSoundSources.Length) // random number
+			if (amount > 3) // random number
 			{ 
 				damageSoundSources [i].pitch = Random.Range (0.3f, 0.4f);
+				damageSoundSources [i].volume = volume;
 			} else 
 			{
 				damageSoundSources [i].pitch = Random.Range (0.6f, 0.7f);
+				damageSoundSources [i].volume = volume * 0.3f;
 			}
 
 
