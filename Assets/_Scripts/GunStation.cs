@@ -22,6 +22,8 @@ public class GunStation : Station
     // projectile to spawn when we press fire
     public GameObject projectilePrefab;
 
+	private Color playerColor;
+
     
 
     private Quaternion _initialRotation;
@@ -105,6 +107,8 @@ public class GunStation : Station
         if (currentPlayer.input.PressingFire() && (Time.time - _lastShotTime) >= reloadTime)
         {
             GameObject proj = Instantiate(projectilePrefab);
+			SpriteRenderer rend = proj.GetComponent<SpriteRenderer>();
+			rend.color = playerColor;
             proj.layer = 11;
             // Physics2D.IgnoreCollision(proj.GetComponent<Collider2D>(), transform.parent.GetComponent<Collider2D>());
 
@@ -143,7 +147,8 @@ public class GunStation : Station
 
     protected override void OnStartManning(Player player)
     {
-        // might create a crosshair sprite here later (that follows the mouse cursor)
+		SpriteRenderer renderer = player.GetComponent<SpriteRenderer> ();
+		playerColor = renderer.color;
     }
 
     protected override void OnStopManning()
