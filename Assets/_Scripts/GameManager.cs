@@ -54,13 +54,13 @@ public class GameManager : MonoBehaviour {
         canvas.SetActive(true);
         winImage.SetActive(true);
         gameObject.SetActive(false);
-        Invoke("GoToMenu", 6.0f);
+        Invoke("GoToMenu", 4.0f);
     }
 
     private void GoToMenu()
     {
-        SceneManager.LoadScene("Main Menu");
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Menu"));
+        SceneManager.LoadScene("Main_Menu");
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main_Menu"));
     }
 
     private bool CheckForWin()

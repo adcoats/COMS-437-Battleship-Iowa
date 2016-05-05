@@ -60,12 +60,17 @@ public class EnemyGun : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        if ((target.transform.position - transform.position).magnitude > maxFireDistance)
+        if ((target.transform.position - transform.position).magnitude > maxFireDistance )
             return;
+		
+		Vector2 aimVector = target.transform.position - transform.position;
+
+		if (Mathf.Abs(Util.VectorAngleWithSign (aimVector.normalized, _neutralRotation * Vector2.up)) > turnRadius)
+			return;
         
 		// look at player ship
 		Vector2 neutralUpVector = Camera.main.transform.rotation * _neutralRotation * Vector2.up;
-		Vector2 aimVector = target.transform.position - transform.position;
+
 		_currentAim = Vector2.Angle(aimVector, neutralUpVector);
 
 		// fix the sign because Vector2.Angle apparently doesn't give one (UGH)
