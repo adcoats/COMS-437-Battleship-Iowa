@@ -17,6 +17,8 @@ public class EnemyBattleship : MonoBehaviour
 	private SpriteRenderer renderer;
 	private float damageTaken;
 
+	public float aggroRange = 15f;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -35,6 +37,9 @@ public class EnemyBattleship : MonoBehaviour
 
     void FixedUpdate()
     {
+		if ((target.transform.position - transform.position).magnitude > aggroRange)
+			return;
+
         Rigidbody2D body = GetComponent<Rigidbody2D>();
         Vector2 forward = body.transform.rotation * Vector2.up;
 
