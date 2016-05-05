@@ -48,4 +48,9 @@ public class MKBInput : MonoBehaviour, IPlayerInput
     {
         return true;
     }
+
+    public bool PressingZoomOut()
+    {
+        return Input.GetKey(KeyCode.Q);
+    }
 }

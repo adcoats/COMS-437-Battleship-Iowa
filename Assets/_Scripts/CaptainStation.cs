@@ -9,12 +9,16 @@ public class CaptainStation : Station
 
     public float forwardSpeed = 15.0f;
     public float turnSpeed = 50.0f;
-    
+
+    public float zoomAmount = 45.0f;
+    private float _origCameraSize;
+    private float _currentZoom;
+
     // Use this for initialization
     void Start ()
     {
-	
-	}
+        _origCameraSize = Camera.main.orthographicSize;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -35,6 +39,17 @@ public class CaptainStation : Station
 		body.AddTorque(-currentPlayer.input.GetSteering().x * turnSpeed);
         // make sure the player is in their seat
         currentPlayer.transform.position = playerSeat.transform.position;
+
+        // zoom stuff
+        if (currentPlayer.input.PressingZoomOut())
+        {
+            _currentZoom += Time.deltaTime * 2.0f;
+        } else {
+            _currentZoom -= Time.deltaTime * 2.0f;
+        }
+        _currentZoom = Mathf.Clamp(_currentZoom, 0f, 1f);
+        
+        Camera.main.orthographicSize = _origCameraSize + _currentZoom *_currentZoom * zoomAmount;
 	}
 
     protected override void OnStartManning(Player player)
