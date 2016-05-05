@@ -5,8 +5,8 @@ public class EnemyPlane : MonoBehaviour {
 
 	public GameObject planeExplosion;
 	public Vector3 initPos;
-	public float searchRange = 50.0f; // The plane will search for the player in this radius from itself.
-	public bool found = false;
+	public float searchRange = 0.5f; // The plane will search for the player in this radius from itself.
+	public bool found;
 	
     // AI
     public GameObject target;
@@ -18,6 +18,7 @@ public class EnemyPlane : MonoBehaviour {
 	void Start()
     {
 		this.initPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+		found = false;
 	}
 
     void Awake()
@@ -33,8 +34,14 @@ public class EnemyPlane : MonoBehaviour {
         Vector2 dir = target.transform.position - transform.position;
         float dist = dir.magnitude;
 		
-		if( dist <= searchRange ){
-			found = true;
+		if( !found ){
+			
+			dir = initPos - transform.position;
+			dist = dir.magnitude;
+			
+			if( dist <= searchRange ){
+				found = true;
+			}
 		}
 		
         dir.Normalize();
