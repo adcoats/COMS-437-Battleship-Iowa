@@ -11,20 +11,11 @@ public class EnemyBattleship : MonoBehaviour
 
     public GameObject target;
 
-
-	private AudioSource[] damageSoundSources;
-	private float damageFlashTime;
-	private SpriteRenderer renderer;
-	private float damageTaken;
-
 	public float aggroRange = 20f;
 
 	// Use this for initialization
 	void Start ()
     {
-		damageSoundSources = GetComponents<AudioSource> ();
-		renderer = GetComponent<SpriteRenderer> ();
-		damageTaken = 0;
 	}
 
     void Awake()
@@ -39,7 +30,6 @@ public class EnemyBattleship : MonoBehaviour
     {
 		if ((target.transform.position - transform.position).magnitude > aggroRange)
 		{
-			
 			return;
 		}
 

@@ -7,18 +7,18 @@ public class DamageFlash : MonoBehaviour {
 	public float decayFactor = 10;
 
 	float damageTaken;
-	private SpriteRenderer renderer;
+	private SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () {
-		renderer = GetComponent<SpriteRenderer> ();
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 		damageTaken = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		damageTaken = Mathf.Clamp (damageTaken, 0, maxDamageTaken);
-		renderer.color = Color.Lerp (Color.white, Color.red, damageTaken / maxDamageTaken);
+		spriteRenderer.color = Color.Lerp (Color.white, Color.red, damageTaken / maxDamageTaken);
 		damageTaken -= decayFactor * Time.deltaTime;
 	}
 
