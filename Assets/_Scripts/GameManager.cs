@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour {
     private void GoToMenu()
     {
         SceneManager.LoadScene("Main Menu");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Menu"));
     }
 
     private bool CheckForWin()
