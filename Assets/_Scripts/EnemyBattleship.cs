@@ -68,11 +68,9 @@ public class EnemyBattleship : MonoBehaviour
             body.velocity = forward * speed / (1 + Mathf.Abs(body.angularVelocity / 180.0f));
         } else {
             targetAngle = target.GetComponent<Rigidbody2D>().rotation - body.rotation;
-            print("in follow range, angle diff: " + targetAngle);
             body.velocity = forward * target.GetComponent<Rigidbody2D>().velocity.magnitude;
         }
         
-        //print("Target angle: " + targetAngle);
         body.angularVelocity = Mathf.Clamp(targetAngle, -maxTurnSpeed, maxTurnSpeed);
     }
 
